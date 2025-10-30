@@ -3,7 +3,7 @@
     require_once "config.inc.php";
 
     $id = $_POST['id'];
-    $produto = $_POST['produto'];
+    $nome = $_POST['produto'];
     $preco = $_POST['preco'];
     $estoque = $_POST['estoque'];
 

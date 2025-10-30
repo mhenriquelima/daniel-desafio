@@ -1,42 +1,24 @@
 <?php
     require_once "config.inc.php";
-    // Validate incoming id to avoid undefined index notices
-    if (!isset($_REQUEST['id']) || !is_numeric($_REQUEST['id'])) {
-        echo "ID do produto não fornecido ou inválido.";
-        echo "<a href='?pg=admin_produtos'>Voltar</a>";
-        exit;
-    }
-
-    $id = (int) $_REQUEST['id'];
+    $id = $_REQUEST['id'];
     $sql = "SELECT * FROM produtos WHERE id = $id";
     $resultado = mysqli_query($conexao, $sql);
 
-    if (!$resultado) {
-        echo "Erro ao buscar produto: " . mysqli_error($conexao);
-        echo "<a href='?pg=admin_produtos'>Voltar</a>";
-        exit;
+    while ($produto = mysqli_fetch_array($resultado)){
+        $id = $produto['id'];
+        $nome = $produto['produto'];
+        $preco = $produto['preco'];
+        $estoque = $produto['estoque'];
     }
-
-    $produto = mysqli_fetch_assoc($resultado);
-    if (!$produto) {
-        echo "Produto não encontrado.";
-        echo "<a href='?pg=admin_produtos'>Voltar</a>";
-        exit;
-    }
-
-    $id = $produto['id'];
-    $nome = $produto['produto'];
-    $preco = $produto['preco'];
-    $estoque = $produto['estoque'];
 ?>
 
 <form action="?pg=altera_produtos" method="post">
     <input type="hidden" name="id" value="<?=$id?>">
     <label>Nome do produto:</label>
-    <input type="text" name="produto" value="<?=htmlspecialchars($nome)?>">
+    <input type="text" name="produto" value="<?=$nome?>">
     <label>preco:</label>
-    <input type="text" name="preco" value="<?=htmlspecialchars($preco)?>">
+    <input type="text" name="preco" value="<?=$preco?>">
     <label>estoque:</label>
-    <input type="text" name="estoque" value="<?=htmlspecialchars($estoque)?>">
-    <input type="submit" value="Alterar Produto">
+    <input type="text" name="estoque" value="<?=$estoque?>">
+    <input type="submit" value="Cadastrar">
 </form>

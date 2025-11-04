@@ -3,7 +3,7 @@
     require_once "config.inc.php";
 
     $sql = "INSERT INTO  clientes (cliente, cidade, estado)VALUES (
-            '$_POST[nome]','$_POST[cidade]','$_POST[estado]')";
+            '$_POST[cliente]','$_POST[cidade]','$_POST[estado]')";
 
     $execute = mysqli_query($conexao, $sql);
 
